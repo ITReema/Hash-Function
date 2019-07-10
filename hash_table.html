@@ -1,0 +1,75 @@
+<script>
+    
+    function hash(key, tableSize) {
+        var hash = 0;
+        for (i = 0; i < key.length; i++) {
+            hash += key.charCodeAt(i)
+        }
+        return hash % tableSize
+    }
+
+    function AddToHashTable(key,size,color, brand) {
+        var index = hash(key, hashTableSize)
+        if (hashTable[index] == undefined) {
+            hashTable[index] = [[key,size,color, brand]]
+        } else {
+            var inserted = false
+            for (var x = 0; x < hashTable[index].length; x++) {
+                //update
+                if (hashTable[index][x][0] === key) {
+                    hashTable[index][x][1] = size
+                    hashTable[index][x][2] = color
+                    hashTable[index][x][3] = brand 
+                    inserted = true
+                }
+            }
+            if (inserted === false) {
+                hashTable[index].push([key,size,color, brand]);
+            }
+        }
+    }
+
+    function searchHashTable( key) {
+        var index = hash(key, hashTableSize)
+        if (hashTable[index] === undefined) {
+            return undefined
+        } else {
+
+            for (var j = 0; j < hashTable[index].length; j++) {
+                if (hashTable[index][j][0] == key) {
+                    return hashTable[index][j][1]
+                }
+            }
+
+        }
+    }
+
+    var hashTable = [];
+    const hashTableSize = 10;
+
+    num = window.prompt("number of dress:")
+    function addData (){
+        
+        for (var i = 0; i < num; i++) {
+            key = window.prompt("key")
+            size = window.prompt("size")
+            color = window.prompt("color")
+            brand = window.prompt("brand")
+
+            result = AddToHashTable(key, size, color, brand)
+            window.localStorage.setItem(key, size, color, brand);
+            
+        }
+        console.log(localStorage)
+
+        return result
+    }
+
+    addData()
+    
+    searchedKey = window.prompt('Search key?')
+    console.log(hashTable)
+    result =searchHashTable(searchedKey)
+    console.log(result)
+
+</script>
