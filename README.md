@@ -1,1 +1,1 @@
-# Hash-Function
+# Hash Function
